@@ -1,5 +1,7 @@
 # Monte Carlo Path Tracer
-CPU path tracer for producing unbiased photorealistic renders of virtual scenes. Includes support for spheres, triangles, quadrilaterals, volumes (i.e. 'fog'), Perlin noise, metals, dielectrics, lambertians, etc. Uses Bounding Volume Hierarchies (BVHs) to perform ray-intersection tests in O(logN) as opposed to O(N) with respect to object count. Additionally uses OpenMP to render multiple pixels in parallel by using the available hardware threads.
+CPU path tracer for producing unbiased photorealistic renders of virtual scenes. Includes support for various primitives, various material BRDFs, textures, volumes (i.e. 'fog'), Perlin noise, motion blur, depth of field, etc. 
+
+Uses Bounding Volume Hierarchies (BVHs) to perform ray-intersection tests in O(logN) as opposed to O(N) with respect to object count. Additionally uses OpenMP to render multiple pixels in parallel by using multiple of the available hardware threads.
 
 ![Final scene at 4096 samples-per-pixel](images/final-4096spp.png)
 
