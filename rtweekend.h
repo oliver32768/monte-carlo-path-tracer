@@ -5,6 +5,7 @@
 #ifndef RAYTRACINGINONEWEEKEND_RTWEEKEND_H
 #define RAYTRACINGINONEWEEKEND_RTWEEKEND_H
 
+#include <exception>
 #include <cmath>
 #include <limits>
 #include <memory>

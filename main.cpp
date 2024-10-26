@@ -10,7 +10,7 @@
 #include "triangle.h"
 #include "constant_medium.h"
 
-void random_spheres(std::ofstream& img)
+void random_spheres(std::ofstream& img, int spp)
 {
     hittable_list world;
 
@@ -69,7 +69,7 @@ void random_spheres(std::ofstream& img)
 
     cam.aspect_ratio = 16.0 / 9.0;
     cam.image_width = 400;
-    cam.samples_per_pixel = 50;
+    cam.samples_per_pixel = spp;
     cam.max_depth = 50;
     cam.background = color(0.70, 0.80, 1.00);
 
@@ -84,7 +84,7 @@ void random_spheres(std::ofstream& img)
     cam.render(world, img);
 }
 
-void two_spheres(std::ofstream& img)
+void two_spheres(std::ofstream& img, int spp)
 {
     hittable_list world;
 
@@ -97,7 +97,7 @@ void two_spheres(std::ofstream& img)
 
     cam.aspect_ratio = 16.0 / 9.0;
     cam.image_width = 400;
-    cam.samples_per_pixel = 100;
+    cam.samples_per_pixel = spp;
     cam.max_depth = 50;
     cam.background = color(0.70, 0.80, 1.00);
 
@@ -111,7 +111,7 @@ void two_spheres(std::ofstream& img)
     cam.render(world, img);
 }
 
-void earth(std::ofstream& img)
+void earth(std::ofstream& img, int spp)
 {
     auto earth_texture = make_shared<image_texture>("earthmap.jpg");
     auto earth_surface = make_shared<lambertian>(earth_texture);
@@ -121,7 +121,7 @@ void earth(std::ofstream& img)
 
     cam.aspect_ratio = 16.0 / 9.0;
     cam.image_width = 400;
-    cam.samples_per_pixel = 100;
+    cam.samples_per_pixel = spp;
     cam.max_depth = 50;
     cam.background = color(0.70, 0.80, 1.00);
 
@@ -135,7 +135,7 @@ void earth(std::ofstream& img)
     cam.render(hittable_list(globe), img);
 }
 
-void two_perlin_spheres(std::ofstream& img)
+void two_perlin_spheres(std::ofstream& img, int spp)
 {
     hittable_list world;
 
@@ -147,7 +147,7 @@ void two_perlin_spheres(std::ofstream& img)
 
     cam.aspect_ratio = 16.0 / 9.0;
     cam.image_width = 400;
-    cam.samples_per_pixel = 100;
+    cam.samples_per_pixel = spp;
     cam.max_depth = 50;
     cam.background = color(0.70, 0.80, 1.00);
 
@@ -161,7 +161,7 @@ void two_perlin_spheres(std::ofstream& img)
     cam.render(world, img);
 }
 
-void quads(std::ofstream& img)
+void quads(std::ofstream& img, int spp)
 {
     hittable_list world;
 
@@ -185,7 +185,7 @@ void quads(std::ofstream& img)
 
     cam.aspect_ratio = 1.0;
     cam.image_width = 400;
-    cam.samples_per_pixel = 100;
+    cam.samples_per_pixel = spp;
     cam.max_depth = 50;
     cam.background = color(0.70, 0.80, 1.00);
 
@@ -199,7 +199,7 @@ void quads(std::ofstream& img)
     cam.render(world, img);
 }
 
-void simple_light(std::ofstream& img)
+void simple_light(std::ofstream& img, int spp)
 {
     hittable_list world;
 
@@ -215,7 +215,7 @@ void simple_light(std::ofstream& img)
 
     cam.aspect_ratio      = 16.0 / 9.0;
     cam.image_width       = 400;
-    cam.samples_per_pixel = 100;
+    cam.samples_per_pixel = spp;
     cam.max_depth         = 50;
     cam.background        = color(0,0,0);
 
@@ -229,7 +229,7 @@ void simple_light(std::ofstream& img)
     cam.render(world, img);
 }
 
-void cornell_box(std::ofstream& img)
+void cornell_box(std::ofstream& img, int spp)
 {
     hittable_list world;
 
@@ -259,7 +259,7 @@ void cornell_box(std::ofstream& img)
 
     cam.aspect_ratio      = 1.0;
     cam.image_width       = 600;
-    cam.samples_per_pixel = 200;
+    cam.samples_per_pixel = spp;
     cam.max_depth         = 50;
     cam.background        = color(0,0,0);
 
@@ -273,7 +273,7 @@ void cornell_box(std::ofstream& img)
     cam.render(world, img);
 }
 
-void cornell_smoke(std::ofstream& img)
+void cornell_smoke(std::ofstream& img, int spp)
 {
     hittable_list world;
 
@@ -304,7 +304,7 @@ void cornell_smoke(std::ofstream& img)
 
     cam.aspect_ratio      = 1.0;
     cam.image_width       = 600;
-    cam.samples_per_pixel = 200;
+    cam.samples_per_pixel = spp;
     cam.max_depth         = 50;
     cam.background        = color(0,0,0);
 
@@ -318,7 +318,7 @@ void cornell_smoke(std::ofstream& img)
     cam.render(world, img);
 }
 
-void final_scene(int image_width, int samples_per_pixel, int max_depth, std::ofstream& img)
+void final_scene(int image_width, int spp, int max_depth, std::ofstream& img)
 {
     hittable_list boxes1;
     auto ground = make_shared<lambertian>(color(0.48, 0.83, 0.53));
@@ -400,7 +400,7 @@ void final_scene(int image_width, int samples_per_pixel, int max_depth, std::ofs
 
     cam.aspect_ratio      = 16.0 / 9.0;
     cam.image_width       = image_width;
-    cam.samples_per_pixel = samples_per_pixel;
+    cam.samples_per_pixel = spp;
     cam.max_depth         = max_depth;
     cam.background        = color(0,0,0);
 
@@ -414,24 +414,64 @@ void final_scene(int image_width, int samples_per_pixel, int max_depth, std::ofs
     cam.render(world, img);
 }
 
-int main()
+int main(int argc, char* argv[])
 {
     // Output
     std::ofstream img("image.ppm");
 
-    switch (7)
-    {
-        case 1:  random_spheres(img);                                               break;
-        case 2:  two_spheres(img);                                                  break;
-        case 3:  earth(img);                                                        break;
-        case 4:  two_perlin_spheres(img);                                           break;
-        case 5:  quads(img);                                                        break;
-        case 6:  simple_light(img);                                                 break;
-        case 7:  cornell_box(img);                                                  break;
-        case 8:  cornell_smoke(img);                                                break;
-        case 9:  final_scene(800, 10000, 40,img); break;
-        default: final_scene(400, 250, 4, img);   break;
+    const std::string usage_info = std::string("Usage: ") + argv[0] + " [scene : int 1 to 9] [spp : int 1 to INT_MAX]\n"
+        "\t1: Random Spheres\n"
+        "\t2: Two Spheres\n"
+        "\t3: Earth\n"
+        "\t4: Two Perlin Spheres\n"
+        "\t5: Quads\n"
+        "\t6: Simple Light\n"
+        "\t7: Cornell Box\n"
+        "\t8: Cornell Smoke\n"
+        "\t9: Final Scene\n";
+
+    int scene = {};
+    int spp = {};
+    if (argc == 3) 
+    { 
+        try 
+        {
+            scene = std::stoi(argv[1]);
+            spp = std::stoi(argv[2]);
+            if (scene < 1 || scene > 9 || spp < 1) {
+                std::cerr << "Argument out of range\n" << usage_info;
+                return 1;
+            }
+        } 
+        catch (std::exception& e) 
+        {
+            std::cerr << "Arguments could not be converted to integers\n" << usage_info;
+            return 1;
+        }
     }
+    else 
+    {
+        std::cerr << "Expected 2 arguments, got " << (argc-1) << '\n' << usage_info;
+        return 1;
+    }
+
+    std::cout << "Rendering scene " << scene << " with " << spp << " samples per pixel\n";
+
+    switch (scene)
+    {
+        case 1:  random_spheres(img, spp);       break;
+        case 2:  two_spheres(img, spp);          break;
+        case 3:  earth(img, spp);                break;
+        case 4:  two_perlin_spheres(img, spp);   break;
+        case 5:  quads(img, spp);                break;
+        case 6:  simple_light(img, spp);         break;
+        case 7:  cornell_box(img, spp);          break;
+        case 8:  cornell_smoke(img, spp);        break;
+        case 9:  final_scene(800, spp, 40, img); break;
+        default: final_scene(400, spp, 4, img);  break;
+    }
+
+    std::cout << "Render saved to ./image.ppm.\n";
 
     return 0;
 }
